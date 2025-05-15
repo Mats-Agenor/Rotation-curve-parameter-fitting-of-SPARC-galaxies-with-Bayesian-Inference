@@ -59,4 +59,6 @@ Possible causes include:
 - Inference algorithm still unstable.
 
 If anyone is interested or knows how to improve or fix the code, **feel free to try!** All help is welcome.
+
+
 OBS: This code is in Portuguese because I was too lazy to translate it.
