@@ -1,0 +1,60 @@
+Rotation curve parameter fitting of SPARC galaxies with Grid Search and Bayesian Inference
+======================================================================
+To use, first compile each of the libraries:
+
+mpif90 -c constants_mod.f90
+
+mpif90 -c data_reader_mod.f90
+
+mpif90 -c galaxy_processor_mod.f90
+
+mpif90 -c math_utils_mod.f90
+
+mpif90 -c halo_models_mod.f90
+
+mpif90 -c stats_mod.f90
+
+mpif90 -c galaxy_fitter.f90
+
+mpif90 -c optimization_mod.f90
+
+Then compile the main code by linking everything together:
+mpif90 galaxy_fitter.f90 constants_mod.o data_reader_mod.o galaxy_processor_mod.o math_utils_mod.o halo_models_mod.o optimization_mod.o stats_mod.o -o galaxy_fitter
+
+Run with:
+mpirun -np 20 ./galaxy_fitter
+
+On a cluster with 20 MPI processes, it takes no more than 20 minutes.
+
+----------------
+This program was developed with the aim of fitting theoretical models of dark matter to the observed rotation curves of galaxies from the SPARC (Spitzer Photometry and Accurate Rotation Curves) catalog. The focus is on testing two classic profiles of dark matter halos: the Burkert profile (cored) and the NFW profile (cuspy).
+
+The adopted methodology combines a **parameter grid search** with **Bayesian inference**, allowing to explore different combinations of density and scale radius parameters, and identify the best fits compatible with the observational data.
+
+Motivation and interest:
+----------------------
+The main motivation is to understand which dark matter model best fits real galaxy data, using robust statistical techniques. This is important to discuss the distribution of dark matter in galaxies and to compare predictions from cosmological simulations with astronomical observations.
+
+Implemented modules:
+----------------------
+1. **constants_mod**: Defines fundamental physical constants, such as the gravitational constant in astronomical units and a small value to avoid division by zero.
+
+2. **math_utils_mod**: Contains utility functions for numerical analysis, such as cumulative sum, linear interpolation, trapezoidal integration, and generation of linear and logarithmic arrays.
+
+3. **halo_models_mod**: Implements the dark matter halo profiles:
+- `burkert_halo`: Burkert profile.
+- `nfw_halo`: NFW (Navarro-Frenk-White) profile.
+
+4. **data_reader_mod**: Responsible for reading the galaxy data files, extracting the radii (R), observed velocities (Vobs), errors, and contributions from the gas and disk.
+
+5. **stats_mod**: Intended to handle the calculation of the likelihood function, priors, and running the Bayesian inference.
+
+Current status:
+---------------
+Unfortunately, despite several attempts, **the program is still not working properly**. The results of the adjustments seem inconsistent or very far from what was expected. The theoretical velocities do not always follow the expected behavior, and the best parameters obtained do not seem to align with the observational physics of the galaxies.
+
+Possible causes include:
+- Inadequate Grid Search
+- Inference algorithm still unstable.
+
+If anyone is interested or knows how to improve or fix the code, **feel free to try!** All help is welcome.
