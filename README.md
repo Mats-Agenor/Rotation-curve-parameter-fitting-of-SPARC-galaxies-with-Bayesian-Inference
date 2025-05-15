@@ -1,5 +1,5 @@
 # Rotation-curve-parameter-fitting-of-SPARC-galaxies-with-Bayesian-Inference
-======================================================================
+-----------
 To use, first compile each of the libraries:
 
 mpif90 -c constants_mod.f90
