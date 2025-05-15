@@ -19,6 +19,7 @@ mpif90 -c galaxy_fitter.f90
 mpif90 -c optimization_mod.f90
 
 Then compile the main code by linking everything together:
+
 mpif90 galaxy_fitter.f90 constants_mod.o data_reader_mod.o galaxy_processor_mod.o math_utils_mod.o halo_models_mod.o optimization_mod.o stats_mod.o -o galaxy_fitter
 
 Run with:
